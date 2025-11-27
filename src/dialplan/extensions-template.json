@@ -1,0 +1,65 @@
+[
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "_XXX",
+    "priority": 1,
+    "app": "NoOp",
+    "appdata": "Internal call inside Tenant<tenant_id> <tenant_name>"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "_XXX",
+    "priority": 2,
+    "app": "Set",
+    "appdata": "YEAR=${STRFTIME(${EPOCH},,%Y)}"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "_XXX",
+    "priority": 3,
+    "app": "Set",
+    "appdata": "MONTH=${STRFTIME(${EPOCH},,%m)}"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "_XXX",
+    "priority": 4,
+    "app": "Set",
+    "appdata": "DAY=${STRFTIME(${EPOCH},,%d)}"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "_XXX",
+    "priority": 5,
+    "app": "Set",
+    "appdata": "CALLFILENAME=${EXTEN}-${STRFTIME(${EPOCH},,%Y%m%d-%H%M%S)}"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "_XXX",
+    "priority": 6,
+    "app": "System",
+    "appdata": "mkdir -p /var/spool/asterisk/monitor/tenant<tenant_id>/${YEAR}/${MONTH}/${DAY}"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "_XXX",
+    "priority": 7,
+    "app": "MixMonitor",
+    "appdata": "/var/spool/asterisk/monitor/tenant<tenant_id>/${YEAR}/${MONTH}/${DAY}/${CALLFILENAME}.wav,b"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "_XXX",
+    "priority": 8,
+    "app": "Dial",
+    "appdata": "PJSIP/${EXTEN},30"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "_XXX",
+    "priority": 9,
+    "app": "Hangup",
+    "appdata": ""
+  }
+]

@@ -8,6 +8,7 @@ import { Tenant } from './entities/tenant.entity';
 import { PsAuth } from './entities/ps-auth.entity';
 import { PsAor } from './entities/ps-aor.entity';
 import { PsEndpoint } from './entities/ps-endpoint.entity';
+import { Extension } from '@app/entities/extension.entity';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { PsEndpoint } from './entities/ps-endpoint.entity';
         username: config.get<string>('MYSQL_USER', 'root'),
         password: config.get<string>('MYSQL_PASSWORD', 'root'),
         database: config.get<string>('MYSQL_DATABASE', 'asterisk'),
-        entities: [Tenant, PsAuth, PsAor, PsEndpoint],
+        entities: [Tenant, PsAuth, PsAor, PsEndpoint, Extension],
         synchronize: config.get<string>('TYPEORM_SYNC', 'false') === 'true',
         logging: config.get<string>('TYPEORM_LOGGING', 'false') === 'true',
       }),

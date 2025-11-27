@@ -4,19 +4,19 @@ import { Column, Entity, PrimaryColumn, Index } from 'typeorm';
 @Index(['tenantId'])
 export class PsEndpoint {
   @PrimaryColumn({ type: 'varchar', length: 191 })
-  id!: string; // e.g., '201'
+  id!: string;
 
   @Column({ type: 'varchar', length: 191 })
-  transport!: string; // e.g., 'transport-udp'
+  transport!: string; //'transport-udp'
 
   @Column({ type: 'varchar', length: 191 })
-  aors!: string; // same as extension id
+  aors!: string;
 
   @Column({ type: 'varchar', length: 191 })
-  auth!: string; // e.g., '201-auth'
+  auth!: string;
 
   @Column({ type: 'varchar', length: 191 })
-  context!: string; // e.g., 'from-tenant2'
+  context!: string;
 
   @Column({ type: 'varchar', length: 191, default: 'all' })
   disallow!: string;
