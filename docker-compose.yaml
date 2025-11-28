@@ -2,9 +2,6 @@ version: '3.8'
 
 services:
   asterisk-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
     image: ghcr.io/mixaboo/multi-tenant-asterisk-app:master
     container_name: multi-tenant-asterisk-app
     restart: unless-stopped

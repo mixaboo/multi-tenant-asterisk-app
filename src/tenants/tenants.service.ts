@@ -9,6 +9,7 @@ import { PsAor } from '@app/entities/ps-aor.entity';
 import { PsEndpoint } from '@app/entities/ps-endpoint.entity';
 import { Extension } from '@app/entities/extension.entity';
 import { Queue } from '@app/entities/queue.entity';
+import { QueueMember } from '@app/entities/queue-member.entity';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -142,6 +143,24 @@ export class TenantsService {
       });
       await manager.getRepository(PsEndpoint).save(endpoint);
 
+      const queueName = `main-tenant${tenantId}`;
+      const iface = `PJSIP/${ext}-tenant${tenantId}`;
+      const membername = `${ext}-tenant${tenantId}`;
+
+      const qmRepo = manager.getRepository(QueueMember);
+      const exists = await qmRepo.findOne({
+        where: { queueName, interface: iface },
+      });
+      if (!exists) {
+        const qm = qmRepo.create({
+          queueName,
+          interface: iface,
+          memberName: membername,
+          penalty: 0,
+          paused: 0,
+        });
+        await qmRepo.save(qm);
+      }
       return { auth, aor, endpoint };
     });
   }

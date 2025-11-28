@@ -10,6 +10,7 @@ import { PsAor } from './entities/ps-aor.entity';
 import { PsEndpoint } from './entities/ps-endpoint.entity';
 import { Extension } from '@app/entities/extension.entity';
 import { Queue } from '@app/entities/queue.entity';
+import { QueueMember } from '@app/entities/queue-member.entity';
 
 @Module({
   imports: [
@@ -23,7 +24,15 @@ import { Queue } from '@app/entities/queue.entity';
         username: config.get<string>('MYSQL_USER', 'root'),
         password: config.get<string>('MYSQL_PASSWORD', 'root'),
         database: config.get<string>('MYSQL_DATABASE', 'asterisk'),
-        entities: [Tenant, PsAuth, PsAor, PsEndpoint, Extension, Queue],
+        entities: [
+          Tenant,
+          PsAuth,
+          PsAor,
+          PsEndpoint,
+          Extension,
+          Queue,
+          QueueMember,
+        ],
         synchronize: config.get<string>('TYPEORM_SYNC', 'false') === 'true',
         logging: config.get<string>('TYPEORM_LOGGING', 'false') === 'true',
       }),

@@ -16,11 +16,6 @@ MYSQL_DATABASE=asterisk
 TYPEORM_SYNC=false
 TYPEORM_LOGGING=false
 
-# Pathes for asterisk - we need it for creating directories for each tenant
-ASTERISK_CONFIG_DIR=/etc/asterisk
-ASTERISK_SOUNDS_DIR=/var/lib/asterisk/sounds
-ASTERISK_VOICEMAIL_DIR=/var/lib/asterisk/voicemail
-
 ```
 
 2. Install and run:
@@ -29,6 +24,7 @@ ASTERISK_VOICEMAIL_DIR=/var/lib/asterisk/voicemail
 npm i
 npm run start:dev
 ```
+or deploy docker-package
 
 3. API Endpoints:
 - `POST /tenant` - create a new tenant with full environment (default context, queue, ivr, inbound-route), separated from others tenants 
