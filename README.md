@@ -16,14 +16,6 @@ MYSQL_DATABASE=asterisk
 TYPEORM_SYNC=false
 TYPEORM_LOGGING=false
 
-# Asterisk paths for creating directories for tenants
-ASTERISK_CONFIG_DIR=/etc/asterisk
-ASTERISK_MONITOR_DIR=/var/spool/asterisk/monitor
-ASTERISK_SOUNDS_DIR=/var/lib/asterisk/sounds
-
-# Asterisk paths for creating default dialplans for tenants
-ASTERISK_EXTENSIONS_CONF=/etc/asterisk/extensions.conf
-
 ```
 
 2. Install and run:
@@ -32,6 +24,7 @@ ASTERISK_EXTENSIONS_CONF=/etc/asterisk/extensions.conf
 npm i
 npm run start:dev
 ```
+or deploy docker-package
 
 3. API Endpoints:
 - `POST /tenant` - create a new tenant with full environment (default context, queue, ivr, inbound-route), separated from others tenants 
