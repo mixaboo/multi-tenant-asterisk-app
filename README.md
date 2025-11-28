@@ -18,8 +18,8 @@ TYPEORM_LOGGING=false
 
 # Pathes for asterisk - we need it for creating directories for each tenant
 ASTERISK_CONFIG_DIR=/etc/asterisk
-ASTERISK_MONITOR_DIR=/var/spool/asterisk/monitor
 ASTERISK_SOUNDS_DIR=/var/lib/asterisk/sounds
+ASTERISK_VOICEMAIL_DIR=/var/lib/asterisk/voicemail
 
 ```
 

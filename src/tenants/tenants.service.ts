@@ -8,6 +8,7 @@ import { PsAuth } from '@app/entities/ps-auth.entity';
 import { PsAor } from '@app/entities/ps-aor.entity';
 import { PsEndpoint } from '@app/entities/ps-endpoint.entity';
 import { Extension } from '@app/entities/extension.entity';
+import { Queue } from '@app/entities/queue.entity';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -17,10 +18,6 @@ export class TenantsService {
     private readonly dataSource: DataSource,
     @InjectRepository(Tenant)
     private readonly tenantsRepository: Repository<Tenant>,
-    //@InjectRepository(PsAuth)
-    //private readonly authRepository: Repository<PsAuth>,
-    //@InjectRepository(PsAor)
-    //private readonly aorRepository: Repository<PsAor>,
     @InjectRepository(PsEndpoint)
     private readonly endpointRepository: Repository<PsEndpoint>,
   ) {}
@@ -76,11 +73,25 @@ export class TenantsService {
 
       if (rows.length > 0) {
         const extRepo = manager.getRepository(Extension);
-        // Avoid duplicates just in case: delete existing rows for this context first
         const context = `from-tenant${savedTenant.tenantId}`;
         await extRepo.delete({ context });
         await extRepo.save(rows.map((r) => extRepo.create(r)));
       }
+
+      // Create a default queue for this tenant
+      const queueRepo = manager.getRepository(Queue);
+      const queue = queueRepo.create({
+        name: `main-tenant${savedTenant.tenantId}`,
+        strategy: 'ringall',
+        timeout: 15,
+        retry: 5,
+        wrapuptime: 0,
+        maxlen: 0,
+        announce: null,
+        context: `from-tenant${savedTenant.tenantId}`,
+        musiconhold: 'default',
+      });
+      await queueRepo.save(queue);
 
       return savedTenant;
     });
@@ -94,6 +105,16 @@ export class TenantsService {
     const authId = `${ext}-auth`;
 
     return await this.dataSource.transaction(async (manager) => {
+      // Validate global uniqueness of extension number (system-wide, across tenants)
+      const existing = await manager
+        .getRepository(PsEndpoint)
+        .findOne({ where: { id: ext } });
+      if (existing) {
+        throw new BadRequestException(
+          `Extension number "${ext}" already exists for another tenant`,
+        );
+      }
+
       const auth = manager.getRepository(PsAuth).create({
         id: authId,
         username: ext,

@@ -61,5 +61,107 @@
     "priority": 9,
     "app": "Hangup",
     "appdata": ""
+  },
+
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "1000",
+    "priority": 1,
+    "app": "Answer",
+    "appdata": ""
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "1000",
+    "priority": 2,
+    "app": "Queue",
+    "appdata": "main-tenant<tenant_id>"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "1000",
+    "priority": 3,
+    "app": "Hangup",
+    "appdata": ""
+  },
+
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "6000",
+    "priority": 1,
+    "app": "Answer",
+    "appdata": ""
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "6000",
+    "priority": 2,
+    "app": "Background",
+    "appdata": "vm-extension"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "6000",
+    "priority": 3,
+    "app": "WaitExten",
+    "appdata": ""
+  },
+
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "1",
+    "priority": 1,
+    "app": "NoOp",
+    "appdata": "Playing current time"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "1",
+    "priority": 2,
+    "app": "Playback",
+    "appdata": "time"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "1",
+    "priority": 3,
+    "app": "SayUnixTime",
+    "appdata": "${EPOCH},12"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "1",
+    "priority": 4,
+    "app": "Goto",
+    "appdata": "from-tenant<tenant_id>,6000,1"
+  },
+
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "2",
+    "priority": 1,
+    "app": "NoOp",
+    "appdata": "Echo test"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "2",
+    "priority": 2,
+    "app": "Echo",
+    "appdata": ""
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "2",
+    "priority": 3,
+    "app": "Goto",
+    "appdata": "from-tenant<tenant_id>,6000,1"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "3",
+    "priority": 1,
+    "app": "Hangup",
+    "appdata": ""
   }
 ]
