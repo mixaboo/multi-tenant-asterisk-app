@@ -74,20 +74,27 @@
     "context": "from-tenant<tenant_id>",
     "exten": "1000",
     "priority": 1,
+    "app": "Set",
+    "appdata": "CDR(accountcode)=tenant<tenant_id>"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "1000",
+    "priority": 2,
     "app": "Answer",
     "appdata": ""
   },
   {
     "context": "from-tenant<tenant_id>",
     "exten": "1000",
-    "priority": 2,
+    "priority": 3,
     "app": "Queue",
     "appdata": "main-tenant<tenant_id>"
   },
   {
     "context": "from-tenant<tenant_id>",
     "exten": "1000",
-    "priority": 3,
+    "priority": 4,
     "app": "Hangup",
     "appdata": ""
   },
@@ -96,20 +103,27 @@
     "context": "from-tenant<tenant_id>",
     "exten": "6000",
     "priority": 1,
+    "app": "Set",
+    "appdata": "CDR(accountcode)=tenant<tenant_id>"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "6000",
+    "priority": 2,
     "app": "Answer",
     "appdata": ""
   },
   {
     "context": "from-tenant<tenant_id>",
     "exten": "6000",
-    "priority": 2,
+    "priority": 3,
     "app": "Background",
     "appdata": "vm-extension"
   },
   {
     "context": "from-tenant<tenant_id>",
     "exten": "6000",
-    "priority": 3,
+    "priority": 4,
     "app": "WaitExten",
     "appdata": ""
   },
