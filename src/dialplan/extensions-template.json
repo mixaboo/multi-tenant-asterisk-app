@@ -4,7 +4,7 @@
     "exten": "_XXX",
     "priority": 1,
     "app": "NoOp",
-    "appdata": "Internal call inside Tenant<tenant_id> <tenant_name>"
+    "appdata": "Internal call inside Tenant<tenant_id> - <tenant_name>"
   },
   {
     "context": "from-tenant<tenant_id>",
@@ -161,6 +161,34 @@
     "context": "from-tenant<tenant_id>",
     "exten": "3",
     "priority": 1,
+    "app": "Hangup",
+    "appdata": ""
+  },
+  {
+    "context": "from-trunk-tenant<tenant_id>",
+    "exten": "_X.",
+    "priority": 1,
+    "app": "NoOp",
+    "appdata": "Inbound call for Tenant<tenant_id> - <tenant_name>"
+  },
+  {
+    "context": "from-trunk-tenant<tenant_id>",
+    "exten": "_X.",
+    "priority": 2,
+    "app": "Answer",
+    "appdata": ""
+  },
+  {
+    "context": "from-trunk-tenant<tenant_id>",
+    "exten": "_X.",
+    "priority": 3,
+    "app": "Queue",
+    "appdata": "main-tenant<tenant_id>"
+  },
+  {
+    "context": "from-trunk-tenant<tenant_id>",
+    "exten": "_X.",
+    "priority": 4,
     "app": "Hangup",
     "appdata": ""
   }
