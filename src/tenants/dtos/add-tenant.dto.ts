@@ -7,7 +7,7 @@ export class CreateTenantDto {
   @ApiProperty({
     description: 'Name of the tenant',
     required: true,
-    example: 'Microsoft Sales Team',
+    example: 'Company1 Sales Team',
   })
   name?: string;
 }

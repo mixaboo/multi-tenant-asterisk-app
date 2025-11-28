@@ -16,10 +16,13 @@ MYSQL_DATABASE=asterisk
 TYPEORM_SYNC=false
 TYPEORM_LOGGING=false
 
-# Pathes for asterisk - we need it for creating directories for each tenant
+# Asterisk paths for creating directories for tenants
 ASTERISK_CONFIG_DIR=/etc/asterisk
+ASTERISK_MONITOR_DIR=/var/spool/asterisk/monitor
 ASTERISK_SOUNDS_DIR=/var/lib/asterisk/sounds
-ASTERISK_VOICEMAIL_DIR=/var/lib/asterisk/voicemail
+
+# Asterisk paths for creating default dialplans for tenants
+ASTERISK_EXTENSIONS_CONF=/etc/asterisk/extensions.conf
 
 ```
 
