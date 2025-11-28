@@ -31,8 +31,8 @@ npm run start:dev
 ```
 
 3. API Endpoints:
-- `POST /tenant` - create a new tenant
-- `POST /tenant/:id/extension` - create a new pjsip-extensin for tenant <id>
+- `POST /tenant` - create a new tenant with full environment (default context, queue, ivr, inbound-route), separated from others tenants 
+- `POST /tenant/:id/extension` - create a new pjsip-extension for tenant <id>
 - `GET /tenant/:id/extensions` - get a list of extensions for tenant <id>
 
 4. Swagger UI:

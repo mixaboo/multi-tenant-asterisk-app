@@ -3,62 +3,69 @@
     "context": "from-tenant<tenant_id>",
     "exten": "_XXX",
     "priority": 1,
+    "app": "Set",
+    "appdata": "CDR(accountcode)=tenant<tenant_id>"
+  },
+  {
+    "context": "from-tenant<tenant_id>",
+    "exten": "_XXX",
+    "priority": 2,
     "app": "NoOp",
     "appdata": "Internal call inside Tenant<tenant_id> - <tenant_name>"
   },
   {
     "context": "from-tenant<tenant_id>",
     "exten": "_XXX",
-    "priority": 2,
+    "priority": 3,
     "app": "Set",
     "appdata": "YEAR=${STRFTIME(${EPOCH},,%Y)}"
   },
   {
     "context": "from-tenant<tenant_id>",
     "exten": "_XXX",
-    "priority": 3,
+    "priority": 4,
     "app": "Set",
     "appdata": "MONTH=${STRFTIME(${EPOCH},,%m)}"
   },
   {
     "context": "from-tenant<tenant_id>",
     "exten": "_XXX",
-    "priority": 4,
+    "priority": 5,
     "app": "Set",
     "appdata": "DAY=${STRFTIME(${EPOCH},,%d)}"
   },
   {
     "context": "from-tenant<tenant_id>",
     "exten": "_XXX",
-    "priority": 5,
+    "priority": 6,
     "app": "Set",
     "appdata": "CALLFILENAME=${EXTEN}-${STRFTIME(${EPOCH},,%Y%m%d-%H%M%S)}"
   },
   {
     "context": "from-tenant<tenant_id>",
     "exten": "_XXX",
-    "priority": 6,
+    "priority": 7,
     "app": "System",
     "appdata": "mkdir -p /var/spool/asterisk/monitor/tenant<tenant_id>/${YEAR}/${MONTH}/${DAY}"
   },
   {
     "context": "from-tenant<tenant_id>",
     "exten": "_XXX",
-    "priority": 7,
+    "priority": 8,
     "app": "MixMonitor",
     "appdata": "/var/spool/asterisk/monitor/tenant<tenant_id>/${YEAR}/${MONTH}/${DAY}/${CALLFILENAME}.wav,b"
   },
   {
     "context": "from-tenant<tenant_id>",
     "exten": "_XXX",
-    "priority": 8,
+    "priority": 9,
     "app": "Dial",
     "appdata": "PJSIP/${EXTEN}-tenant<tenant_id>,30"
   },
   {
     "context": "from-tenant<tenant_id>",
     "exten": "_XXX",
-    "priority": 9,
+    "priority": 10,
     "app": "Hangup",
     "appdata": ""
   },
@@ -164,31 +171,39 @@
     "app": "Hangup",
     "appdata": ""
   },
+
   {
     "context": "from-trunk-tenant<tenant_id>",
     "exten": "_X.",
     "priority": 1,
+    "app": "Set",
+    "appdata": "CDR(accountcode)=tenant<tenant_id>"
+  },
+  {
+    "context": "from-trunk-tenant<tenant_id>",
+    "exten": "_X.",
+    "priority": 2,
     "app": "NoOp",
     "appdata": "Inbound call for Tenant<tenant_id> - <tenant_name>"
   },
   {
     "context": "from-trunk-tenant<tenant_id>",
     "exten": "_X.",
-    "priority": 2,
+    "priority": 3,
     "app": "Answer",
     "appdata": ""
   },
   {
     "context": "from-trunk-tenant<tenant_id>",
     "exten": "_X.",
-    "priority": 3,
+    "priority": 4,
     "app": "Queue",
     "appdata": "main-tenant<tenant_id>"
   },
   {
     "context": "from-trunk-tenant<tenant_id>",
     "exten": "_X.",
-    "priority": 4,
+    "priority": 5,
     "app": "Hangup",
     "appdata": ""
   }

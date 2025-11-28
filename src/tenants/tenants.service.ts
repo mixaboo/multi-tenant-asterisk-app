@@ -102,7 +102,6 @@ export class TenantsService {
     dto: CreateExtensionDto,
   ): Promise<{ auth: PsAuth; aor: PsAor; endpoint: PsEndpoint }> {
     const ext = dto.number;
-    //const authId = `${ext}-auth`;
 
     return await this.dataSource.transaction(async (manager) => {
       // Validate global uniqueness of extension number (system-wide, across tenants)
