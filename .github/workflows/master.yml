@@ -1,0 +1,26 @@
+name: Publish Docker
+
+on:
+  pull_request:
+    branches: [ master ]
+    types: [ closed ]
+
+permissions:
+  contents: read
+  packages: write
+
+
+jobs:
+  build:
+    if: github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'develop'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Publish to registry
+        uses: elgohr/Publish-Docker-Github-Action@v5
+        with:
+          registry: ghcr.io
+          name: ${{ github.repository_owner }}/multi-tenant-asterisk-app
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: master

@@ -18,8 +18,8 @@ TYPEORM_LOGGING=false
 
 # Pathes for asterisk - we need it for creating directories for each tenant
 ASTERISK_CONFIG_DIR=/etc/asterisk
-ASTERISK_MONITOR_DIR=/var/spool/asterisk/monitor
 ASTERISK_SOUNDS_DIR=/var/lib/asterisk/sounds
+ASTERISK_VOICEMAIL_DIR=/var/lib/asterisk/voicemail
 
 ```
 
@@ -31,8 +31,8 @@ npm run start:dev
 ```
 
 3. API Endpoints:
-- `POST /tenant` - create a new tenant
-- `POST /tenant/:id/extension` - create a new pjsip-extensin for tenant <id>
+- `POST /tenant` - create a new tenant with full environment (default context, queue, ivr, inbound-route), separated from others tenants 
+- `POST /tenant/:id/extension` - create a new pjsip-extension for tenant <id>
 - `GET /tenant/:id/extensions` - get a list of extensions for tenant <id>
 
 4. Swagger UI:

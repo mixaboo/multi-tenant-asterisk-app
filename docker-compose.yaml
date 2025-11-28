@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  asterisk-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/mixaboo/multi-tenant-asterisk-app:master
+    container_name: multi-tenant-asterisk-app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data:rw
+    ports:
+      - "3009:3009"
+    healthcheck:
+      test: ["CMD", "node", "dist/health-check.js"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - asterisk-net
+
+networks:
+  asterisk-net:
+    driver: bridge
