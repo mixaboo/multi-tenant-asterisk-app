@@ -102,29 +102,29 @@ export class TenantsService {
     dto: CreateExtensionDto,
   ): Promise<{ auth: PsAuth; aor: PsAor; endpoint: PsEndpoint }> {
     const ext = dto.number;
-    const authId = `${ext}-auth`;
+    //const authId = `${ext}-auth`;
 
     return await this.dataSource.transaction(async (manager) => {
       // Validate global uniqueness of extension number (system-wide, across tenants)
       const existing = await manager
         .getRepository(PsEndpoint)
-        .findOne({ where: { id: ext } });
+        .findOne({ where: { id: `${ext}-tenant${tenantId}` } });
       if (existing) {
         throw new BadRequestException(
-          `Extension number "${ext}" already exists for another tenant`,
+          `Extension number "${ext}" already exists for the ${tenantId}`,
         );
       }
 
       const auth = manager.getRepository(PsAuth).create({
-        id: authId,
-        username: ext,
+        id: `${ext}-auth-tenant${tenantId}`,
+        username: `${ext}-tenant${tenantId}`,
         password: dto.password,
         tenantId,
       });
       await manager.getRepository(PsAuth).save(auth);
 
       const aor = manager.getRepository(PsAor).create({
-        id: ext,
+        id: `${ext}-tenant${tenantId}`,
         maxContacts: dto.maxContacts ?? 1,
         removeExisting: dto.removeExisting ?? true,
         tenantId,
@@ -132,10 +132,10 @@ export class TenantsService {
       await manager.getRepository(PsAor).save(aor);
 
       const endpoint = manager.getRepository(PsEndpoint).create({
-        id: ext,
+        id: `${ext}-tenant${tenantId}`,
         transport: dto.transport ?? 'transport-udp',
-        aors: ext,
-        auth: authId,
+        aors: `${ext}-tenant${tenantId}`,
+        auth: `${ext}-auth-tenant${tenantId}`,
         context: `from-tenant${tenantId}`,
         disallow: dto.disallow ?? 'all',
         allow: dto.allow ?? 'ulaw,alaw',

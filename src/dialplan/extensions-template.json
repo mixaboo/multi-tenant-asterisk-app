@@ -53,7 +53,7 @@
     "exten": "_XXX",
     "priority": 8,
     "app": "Dial",
-    "appdata": "PJSIP/${EXTEN},30"
+    "appdata": "PJSIP/${EXTEN}-tenant<tenant_id>,30"
   },
   {
     "context": "from-tenant<tenant_id>",
